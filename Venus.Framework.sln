@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venus.Util.Offices", "Venus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venus.Application.SMSBase", "Venus.Application\Venus.Application.SMSBase\Venus.Application.SMSBase.csproj", "{7202EED5-E180-44B6-97BD-5BAA48256CA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venus.Test.Chemical", "Venus.Test\Venus.Test.Chemical\Venus.Test.Chemical.csproj", "{33B7BD68-44F3-4B64-AC3C-E34164DE2B56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{7202EED5-E180-44B6-97BD-5BAA48256CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7202EED5-E180-44B6-97BD-5BAA48256CA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7202EED5-E180-44B6-97BD-5BAA48256CA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B7BD68-44F3-4B64-AC3C-E34164DE2B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B7BD68-44F3-4B64-AC3C-E34164DE2B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B7BD68-44F3-4B64-AC3C-E34164DE2B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B7BD68-44F3-4B64-AC3C-E34164DE2B56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +101,6 @@ Global
 		{4095F989-970C-4269-BB90-9F51A32C65DA} = {EDBD2357-1779-4D27-BCCC-FD3060B5040A}
 		{F83A159C-D21F-41B6-B6B7-DDDC24510AC8} = {5D034CF8-1986-42FB-818C-3FE569268519}
 		{7202EED5-E180-44B6-97BD-5BAA48256CA2} = {332B047B-7936-4C24-B956-CF9FB013BA03}
+		{33B7BD68-44F3-4B64-AC3C-E34164DE2B56} = {EDBD2357-1779-4D27-BCCC-FD3060B5040A}
 	EndGlobalSection
 EndGlobal
