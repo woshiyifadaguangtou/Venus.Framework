@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Venus.Application.Entity.SMSManager
+namespace Venus.Application.Entity
 {
     public class MASSetingEntity
     {
