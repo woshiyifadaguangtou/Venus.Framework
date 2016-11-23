@@ -7,21 +7,23 @@ using System.Configuration;
 using Venus.Application.Entity;
 using System.Reflection;
 using System.Linq.Expressions;
+using Venus.Data.Repository;
 
 namespace Venus.Test.Console
 {
     class Program
     {
-        static String connString = ConfigurationManager.ConnectionStrings["testConn"].ConnectionString;
-        static Venus.Data.EF.Database db;
-
+        static String connString = ConfigurationManager.ConnectionStrings["BaseDb"].ConnectionString;
+        static IRepository db;
+       // static Venus.Data.IDatabase db;
 
         static void Main(string[] args)
         {
 
-            db = new Data.EF.Database(connString, "SqlServer");
-            //Insert();
-            //Find2();
+            db = new RepositoryFactory().BaseRepository();
+         //   db = new Venus.Data.EF.Database(connString, "SqlServer");
+           // Insert();
+            Find();
             //Delete();
             Update();
             System.Console.WriteLine("执行完毕!");
@@ -30,6 +32,7 @@ namespace Venus.Test.Console
 
         private static void Insert()
         {
+            db = new RepositoryFactory().BaseRepository();
             List<TestEntity> testList = new List<TestEntity>();
             for (int i = 0; i < 9; i++)
             {
@@ -39,6 +42,7 @@ namespace Venus.Test.Console
         }
         private static void Update()
         {
+            db = new RepositoryFactory().BaseRepository();
             var result = new TestEntity() { Id = "0", Name = "MyTest" };
             db.Update(result);
         }
@@ -50,26 +54,26 @@ namespace Venus.Test.Console
             //db.Delete(result1);
 
 
-        //    db.Delete<TestEntity>("4");
-
-            object[] id = { "5","6"};
+            //    db.Delete<TestEntity>("4");
+            db = new RepositoryFactory().BaseRepository();
+            object[] id = { "5", "6" };
             db.Delete<TestEntity>(id);
 
         }
         private static void Find()
         {
             var result = db.FindEntity<TestEntity>("1");
+            db = new RepositoryFactory().BaseRepository();
 
-
-            if(result != null)
-            System.Console.WriteLine("Name:{0}", result.Name);
+            if (result != null)
+                System.Console.WriteLine("Name:{0}", result.Name);
         }
 
         private static void Find2()
         {
             // Expression<Func<TestEntity,int, bool>> expression = (Param,num) => Param.Id == num.ToString();
-
-           string key = "1";
+            db = new RepositoryFactory().BaseRepository();
+            string key = "1";
             Expression<Func<TestEntity, bool>> expression = param => true;
             Expression< Func < TestEntity,bool>> expression2 = param => param.Id == key;
 

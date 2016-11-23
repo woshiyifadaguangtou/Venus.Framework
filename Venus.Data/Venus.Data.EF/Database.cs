@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Venus.Data.Extension;
 using Venus.Util;
+using Venus.Util.Ioc;
 
 namespace Venus.Data.EF
 {
@@ -22,7 +25,16 @@ namespace Venus.Data.EF
 
         public Database(string connString, string DbType)
         {
-            dbContext = new SqlServerDbContext(connString);
+            if (DbType == "")
+            {
+                dbContext = (DbContext)UnityIocHelper.DBInstance.GetService<IDbContext>(new ParameterOverride(
+                          "connString", connString));
+            }
+            else
+            {
+                dbContext = (DbContext)UnityIocHelper.DBInstance.GetService<IDbContext>(DbType, new ParameterOverride(
+                           "connString", connString));
+            }
         }
 
         #endregion 

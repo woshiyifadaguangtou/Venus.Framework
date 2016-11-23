@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Venus.Test.Console</RootNamespace>
     <AssemblyName>Venus.Test.Console</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="XmlConfig\ioc.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Venus.Application\Venus.Application.Entity\Venus.Application.Entity.csproj">
@@ -70,6 +73,14 @@
     <ProjectReference Include="..\..\Venus.Data\Venus.Data.EF\Venus.Data.EF.csproj">
       <Project>{c0a3edb7-382d-4043-b7bf-77153440042c}</Project>
       <Name>Venus.Data.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data.Repository\Venus.Data.Repository.csproj">
+      <Project>{239ada19-3e52-40ea-8101-3d5643662837}</Project>
+      <Name>Venus.Data.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data\Venus.Data.csproj">
+      <Project>{8c2cfbca-6358-4775-9942-e2c91858f413}</Project>
+      <Name>Venus.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

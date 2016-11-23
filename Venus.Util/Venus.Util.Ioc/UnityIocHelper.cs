@@ -12,10 +12,18 @@ namespace Venus.Util.Ioc
         private static readonly UnityIocHelper dbinstance = new UnityIocHelper("DBcontainer");
         private UnityIocHelper(string containerName)
         {
-            UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
-            _container = new UnityContainer();
-            section.Configure(_container, containerName);
-            //section.Configure(_container);
+            try
+            {
+                var section1 = ConfigurationManager.GetSection("unity");
+                UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection("unity");
+                _container = new UnityContainer();
+                section.Configure(_container, containerName);
+                //section.Configure(_container);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         public static string GetmapToByName(string containerName, string itype, string name = "")
         {

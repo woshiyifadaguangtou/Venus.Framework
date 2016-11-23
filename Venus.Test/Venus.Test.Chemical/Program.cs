@@ -15,7 +15,7 @@ namespace Venus.Test.Chemical
         static void Main(string[] args)
         {
 
-
+            TextChemicalMix();
             Console.ReadKey();
 
         }
@@ -76,54 +76,86 @@ namespace Venus.Test.Chemical
         /// <summary>
         /// 化合物测试
         /// </summary>
-        public void TextChemicalMix()
+        public static void TextChemicalMix()
         {
 
             var dtList = InitDangerousType();
+            var dlList = InitDangerousLevel();
 
             List<ChemicalEntity> ceList = new List<ChemicalEntity>();
 
             //具有毒性1A类的化合物
             ChemicalEntity entity1A = new ChemicalEntity();
-            entity1A.DangerousList.Add(dtList[5]);
+            entity1A.DangerousList.Add(dtList[4]);
+
 
             //具有毒性1B类的化合物
             ChemicalEntity entity1B = new ChemicalEntity();
-            entity1B.DangerousList.Add(dtList[4]);
+            entity1B.DangerousList.Add(dtList[3]);
 
             //具有毒性1C类的化合物
             ChemicalEntity entity1C = new ChemicalEntity();
-            entity1C.DangerousList.Add(dtList[3]);
+            entity1C.DangerousList.Add(dtList[2]);
 
             //具有毒性2类的化合物
             ChemicalEntity entity2 = new ChemicalEntity();
-            entity2.DangerousList.Add(dtList[2]);
+            entity2.DangerousList.Add(dtList[1]);
 
             //具有毒性3类的化合物
             ChemicalEntity entity3 = new ChemicalEntity();
-            entity3.DangerousList.Add(dtList[1]);
+            entity3.DangerousList.Add(dtList[0]);
+
+            entity1A.c_param = 0.1;
+            entity1B.c_param = 0.2;
+            entity1C.c_param = 0.1;
+            entity2.c_param = 9;
+            entity3.c_param = 0;
+
+            entity1A.Name = "某成分1";
+            entity1B.Name = "某成分2";
+            entity1C.Name = "某成分3";
+            entity2.Name = "某成分4";
+            entity3.Name = "某成分5";
+
+            ceList.Add(entity1A);
+            ceList.Add(entity1B);
+            ceList.Add(entity1C);
+            ceList.Add(entity2);
+            ceList.Add(entity3);
 
 
+            foreach (var ce in ceList)
+            {
+                Console.WriteLine(ce.ToString());
+            }
+            Console.WriteLine("---------------------------------化合----------------------------------");
+           mixture mix = new mixture(ceList);
+            mix.RuleList = InitRule();
+            mix.Calculate();
         }
 
         public static List<Rule> InitRule()
         {
             List<Rule> rules = new List<Rule>();
+
+
+
+
             #region  毒性表达式集合
             List<Rule> DXrules = new List<Rule>()
             {
-                new Rule() { DangerousTypeID = 0,sort = 0,result_level_Id = 5,result_string="1A类" },
-                new Rule() { DangerousTypeID = 0, sort = 1, result_level_Id = 4,result_string="1B类" },
-                new Rule() { DangerousTypeID = 0,sort = 2,result_level_Id = 3 ,result_string="1C类"},
-                new Rule() { DangerousTypeID = 0,sort = 3,result_level_Id = 1 ,result_string="2类"},
+                new Rule() { DangerousTypeID = 0,sort = 0,result_level_Id = 5,result_string="1类" },
+                new Rule() { DangerousTypeID = 0, sort = 1, result_level_Id = 1,result_string="2类" },
+                new Rule() { DangerousTypeID = 0,sort = 2,result_level_Id = 1 ,result_string="2类"},
+                new Rule() { DangerousTypeID = 0,sort = 3,result_level_Id = 0 ,result_string="3类"},
                 new Rule() { DangerousTypeID = 0,sort = 4,result_level_Id = 0 ,result_string="3类"},
             };
-           
-            DXrules[0].Func = (d) =>    //1A+1B+1C >5 => 1A
+
+            DXrules[0].Func = (d) =>    //1A+1B+1C >=5  ----------- 1
             {
                 if (d != null && d.Count() > 0)
                 {
-                    var param_1A = Get_c_param(d,5);
+                    var param_1A = Get_c_param(d, 5);
 
                     var param_1B = Get_c_param(d, 4);
 
@@ -134,28 +166,78 @@ namespace Venus.Test.Chemical
                 return false;
             };
 
-            DXrules[1].Func = (d) =>    //1A+1B+1C >5 => 1A
+            DXrules[1].Func = (d) =>    //  1 <=  1A+1B+1C < 5 --------------2 
             {
                 if (d != null && d.Count() > 0)
                 {
-                    var param_1A = d.Where(e => e.Dangerous_level_Id == 5).FirstOrDefault().c_param;
+                    var param_1A = Get_c_param(d, 5);
 
-                    var param_1B = d.Where(e => e.Dangerous_level_Id == 4).FirstOrDefault().c_param;
+                    var param_1B = Get_c_param(d, 4);
 
-                    var param_1C = d.Where(e => e.Dangerous_level_Id == 3).FirstOrDefault().c_param;
+                    var param_1C = Get_c_param(d, 3);
 
                     var result = param_1A + param_1B + param_1C;
-                    return result <5 && result >= 1;
+                    return result < 5 && result >= 1;
                 }
                 return false;
             };
 
+            DXrules[2].Func = (d) =>    //  2 >= 10 --------------2  
+            {
+                if (d != null && d.Count() > 0)
+                {
+
+
+                    var param_2 = Get_c_param(d, 1);
+
+                    return param_2 >= 10;
+                }
+                return false;
+            };
+
+            DXrules[3].Func = (d) =>    //  2 >= 1 && 2 <10  --------------3  
+            {
+                if (d != null && d.Count() > 0)
+                {
+
+
+                    var param_2 = Get_c_param(d, 1);
+
+                    return param_2 >= 1 && param_2 < 10;
+                }
+                return false;
+            };
+
+            DXrules[4].Func = (d) =>    //  1类*10+2类 >=10  --------------3  
+            {
+                if (d != null && d.Count() > 0)
+                {
+                    var param_1A = Get_c_param(d, 5);
+
+                    var param_1B = Get_c_param(d, 4);
+
+                    var param_1C = Get_c_param(d, 3);
+
+                    var param_2 = Get_c_param(d, 1);
+
+                    var result = (param_1A + param_1B + param_1C) * 10 + param_2;
+                    return result >= 10;
+                }
+                return false;
+            };
             #endregion 
+
+            rules.AddRange(DXrules);
 
             return rules;
         }
-
-        private static double Get_c_param(List<DangerousType> d,int Dangerous_level_Id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d">检索源 必须保证检索源的危险类型都是同一个危险类型的不同级别的集合</param>
+        /// <param name="Dangerous_level_Id">危险级别</param>
+        /// <returns>浓度</returns>
+        private static double Get_c_param(List<DangerousType> d, int Dangerous_level_Id)
         {
             var dangerousType = d.Where(e => e.Dangerous_level_Id == Dangerous_level_Id).FirstOrDefault();
             if (dangerousType != null)
@@ -163,20 +245,20 @@ namespace Venus.Test.Chemical
             return 0;
         }
 
-        public List<DangerousType> InitDangerousType()
+        public static List<DangerousType> InitDangerousType()
         {
             List<DangerousType> result = new List<DangerousType>()
             {
-                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 0 },
-                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 1 },
-                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 3 },
-                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 4 },
-                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 5 },
+                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 0 ,Dangerous_level_string = "毒性3类"},
+                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 1 ,Dangerous_level_string = "毒性2类"},
+                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 3 ,Dangerous_level_string = "毒性1C类"},
+                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 4 ,Dangerous_level_string = "毒性1B类"},
+                new DangerousType () { TypeId = 0 ,TypeName = "毒性",Dangerous_level_Id = 5 ,Dangerous_level_string = "毒性1A类"},
             };
             return result;
         }
 
-        public List<DangerousLevel> InitDangerousLevel()
+        public static List<DangerousLevel> InitDangerousLevel()
         {
             List<DangerousLevel> result = new List<DangerousLevel>()
             {
@@ -207,12 +289,12 @@ namespace Venus.Test.Chemical
             public List<ChemicalEntity> entityList { get; set; }
             public List<DangerousType> DangerousList { get; set; }
 
-            public List<DangerousType>  TargetDangerousList { get; set; }
+            public List<DangerousType> TargetDangerousList { get; set; }
 
             public mixture(List<ChemicalEntity> celist)
             {
                 TargetDangerousList = new List<DangerousType>();
-                   entityList = celist;
+                entityList = celist;
                 Init();
             }
             /// <summary>
@@ -229,7 +311,7 @@ namespace Venus.Test.Chemical
                         {
                             foreach (var dangerous in entity.DangerousList)
                             {
-                                var dangerous1 = DangerousList.Where(e => e.TypeId == dangerous.TypeId && e.Dangerous_level == dangerous.Dangerous_level).FirstOrDefault();
+                                var dangerous1 = DangerousList.Where(e => e.TypeId == dangerous.TypeId && e.Dangerous_level_Id == dangerous.Dangerous_level_Id).FirstOrDefault();
                                 //是否已经存在这个级别的危险类型 ，如果存在直接加上浓度的值
                                 if (dangerous1 != null)
                                 {
@@ -242,7 +324,8 @@ namespace Venus.Test.Chemical
                                         TypeId = dangerous.TypeId,
                                         TypeName = dangerous.TypeName,
                                         Dangerous_level = dangerous.Dangerous_level,
-                                        c_param = dangerous.c_param,
+                                        Dangerous_level_Id = dangerous.Dangerous_level_Id,
+                                        c_param = entity.c_param,
                                         // Rules = dangerous.Rules,
                                     };
                                     DangerousList.Add(dangerous1);
@@ -259,29 +342,32 @@ namespace Venus.Test.Chemical
             {
                 if (DangerousList != null && RuleList != null && DangerousList.Count > 0)
                 {
-                    List<int> dtgroup =  DangerousList.GroupBy(e => e.TypeId).Select(e => e.Key).ToList();
+                    List<int> dtgroup = DangerousList.GroupBy(e => e.TypeId).Select(e => e.Key).ToList();
                     foreach (var dtkey in dtgroup)
                     {
                         var dangeroursList = DangerousList.Where(e => e.TypeId == dtkey).ToList();
                         var dangeroursName = DangerousList.Where(e => e.TypeId == dtkey).FirstOrDefault().TypeName;
+                        var targetDangerous = new DangerousType()
+                        {
+                            TypeName = dangeroursName,
+                            TypeId = dtkey,
+                            Dangerous_level_Id = -1,
+                            Dangerous_level_string = "未定义",
+                        };
                         foreach (var rule in RuleList.Where(e => e.DangerousTypeID == dtkey))
                         {
                             var result = rule.Func(dangeroursList);
                             if (result)
                             {
-                                var targetDangerous = new DangerousType()
-                                {
-                                    TypeName = dangeroursName,
-                                    TypeId = dtkey,
-                                    Dangerous_level_Id = rule.result_level_Id,
-                                    
-                                };
-                                TargetDangerousList.Add(targetDangerous);
-                                Console.WriteLine(String.Format("{0} 危险级别为 {1}", dangeroursName, rule.result_string));
+                                targetDangerous.Dangerous_level_Id = rule.result_level_Id;
+                                targetDangerous.Dangerous_level_string = rule.result_string;
+                               //   Console.WriteLine(String.Format("{0} 危险级别为 {1}", dangeroursName, rule.result_string));
                                 break;
                             }
                         }
-                        Console.WriteLine(String.Format("{0} 危险级别未定义", dangeroursName));
+                        TargetDangerousList.Add(targetDangerous);
+                        Console.WriteLine(String.Format("{0} 危险级别为 {1}", dangeroursName, targetDangerous.Dangerous_level_string));
+
                     }
                 }
             }
@@ -307,6 +393,22 @@ namespace Venus.Test.Chemical
             /// 计算参数
             /// </summary>
             public double c_param { get; set; }
+
+            public ChemicalEntity()
+            {
+                DangerousList = new List<Program.DangerousType>();
+            }
+
+            public override string ToString()
+            {
+                StringBuilder result = new StringBuilder();
+                result.Append(String.Format("成分_{0}_的浓度为{1},含有如下危险系数:\r\n", this.Name, this.c_param));
+                foreach (var dangerous in DangerousList)
+                {
+                    result.Append(String.Format("        类型名:{0} 级别:{1}", dangerous.TypeName,dangerous.Dangerous_level_string));
+                }
+                return result.ToString();
+            }
         }
 
 
@@ -347,6 +449,8 @@ namespace Venus.Test.Chemical
             public DangerousLevel Dangerous_level { get; set; }
 
             public int Dangerous_level_Id { get; set; }
+
+            public string Dangerous_level_string { get; set; }
         }
 
         public class DangerousLevel
