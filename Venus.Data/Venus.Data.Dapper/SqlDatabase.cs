@@ -425,7 +425,7 @@ namespace Venus.Data.Dapper
                 {
                     var parameter = Expression.Parameter(typeof(T), "t");
                     var property = typeof(T).GetProperty(item);
-                    var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+                    var propertyAccess = Expression.MakeMemberAccess(parameter, property);// t.propertyName
                     Expression<Func<T, object>> orderBy = t => propertyAccess;
                     dataLinq.OrderByExpressions.Add(new SQLinq<T>.OrderByExpression { Ascending = isAsc, Expression = orderBy });
                 }

@@ -8,6 +8,7 @@ using Venus.Application.Entity;
 using System.Reflection;
 using System.Linq.Expressions;
 using Venus.Data.Repository;
+using Venus.Data.EF;
 
 namespace Venus.Test.Console
 {
@@ -20,14 +21,18 @@ namespace Venus.Test.Console
         static void Main(string[] args)
         {
 
-         //   db = new RepositoryFactory().BaseRepository();
-         //   db = new Venus.Data.EF.Database(connString, "SqlServer");
-           // Insert();
-            Find();
+            //   db = new RepositoryFactory().BaseRepository();
+            //   db = new Venus.Data.EF.Database(connString, "SqlServer");
+            // Insert();
+            // Find();
             //Delete();
-       //     Update();
+            //     Update();
+            int total = 0;
+            FindList<TestEntity>(e => 1 == 1, "Name", out total);
+            //ExpressionFun<TestEntity>("Name", "MyTest");
             System.Console.WriteLine("执行完毕!");
             System.Console.ReadKey();
+
         }
 
         private static void Insert()
@@ -86,5 +91,56 @@ namespace Venus.Test.Console
                 System.Console.WriteLine("Name:{0}", result.Name);
             a();
         }
+
+        public static List<T> FindList<T>(Expression<Func<T, bool>> condition, string orderField,out int total) where T : class, new()
+        {
+            SqlServerDbContext dbContext = new SqlServerDbContext(connString);
+            string[] orders = orderField.Split(',');
+            var tempData = dbContext.Set<T>().AsQueryable();
+            MethodCallExpression resultexpression = null;
+            foreach (string order in orders)
+            {
+                var propertyInfo = typeof(T).GetProperty(order);
+                ParameterExpression parameter = Expression.Parameter(typeof(T), "t");
+                var filed = Expression.MakeMemberAccess(parameter, propertyInfo);
+                var result = Expression.Lambda(filed, parameter);
+                resultexpression = Expression.Call(typeof(Queryable),"OrderBy",new Type []{ typeof(T),propertyInfo.PropertyType},tempData.Expression,Expression.Quote(result));
+              //  resultexpression = Expression.Call();
+            }
+            tempData = tempData.Provider.CreateQuery<T>(resultexpression);
+            total = tempData.Count();
+            return tempData.ToList();
+            //return null;
+        }
+
+        public static void ExpressionFun<T>(string fieldName,string value) where T : class, new()
+        {
+            
+            var Ttype = typeof(T).GetProperty(fieldName);
+            Expression condition = null;
+            ParameterExpression parameter = Expression.Parameter(typeof(T), "e");
+            var constExression = Expression.Constant(value);
+            var fieldNameExpression = Expression.MakeMemberAccess(parameter, Ttype);
+            var ContainExrepssion = Expression.Call(fieldNameExpression, typeof(string).GetMethod("Contains"), constExression);
+            Expression result = Expression.Lambda(ContainExrepssion, parameter);
+            Expression<Func<T, object>> result1 = e => ContainExrepssion;
+            if (result != result1)
+            {
+
+                db = new RepositoryFactory().BaseRepository();
+                var result4 = db.FindEntity<TestEntity>(result1);
+                if (result4 != null)
+                    System.Console.WriteLine("Name:{0}", result4.Id);
+                db = new RepositoryFactory().BaseRepository();
+                var result3 = db.FindEntity<TestEntity>(result);
+                if (result3 != null)
+                    System.Console.WriteLine("Name:{0}", result3.Id);
+
+            
+            }
+          
+
+        }
+
     }
 }

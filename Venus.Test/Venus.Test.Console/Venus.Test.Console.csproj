@@ -56,7 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="XmlConfig\ioc.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -85,6 +87,10 @@
     <ProjectReference Include="..\..\Venus.Data\Venus.Data\Venus.Data.csproj">
       <Project>{8c2cfbca-6358-4775-9942-e2c91858f413}</Project>
       <Name>Venus.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Util\Venus.Util.WebControl\Venus.Util.WebControl.csproj">
+      <Project>{b940b599-f4a1-470b-8744-eee50b625a75}</Project>
+      <Name>Venus.Util.WebControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -238,8 +238,8 @@ namespace Venus.Data.EF
             var tempData = dbContext.Set<T>().Where(condition).AsQueryable();
             foreach (string item in _order)
             {
-                string _orderPart = item;
-                _orderPart = Regex.Replace(_orderPart, @"\s+", " ");
+                string _orderPart = item; // fieldName (ASC) 
+                _orderPart = Regex.Replace(_orderPart, @"\s+", " "); //替换空白、回车、换行
                 string[] _orderArry = _orderPart.Split(' ');
                 string _orderField = _orderArry[0];
                 bool sort = isAsc;
