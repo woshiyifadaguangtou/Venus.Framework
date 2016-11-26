@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Venus.Data.Extension
+namespace Venus.Data
 {
     public class ConvertExtension
     {

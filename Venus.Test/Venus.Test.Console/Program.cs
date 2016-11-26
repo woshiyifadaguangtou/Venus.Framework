@@ -20,12 +20,12 @@ namespace Venus.Test.Console
         static void Main(string[] args)
         {
 
-            db = new RepositoryFactory().BaseRepository();
+         //   db = new RepositoryFactory().BaseRepository();
          //   db = new Venus.Data.EF.Database(connString, "SqlServer");
            // Insert();
             Find();
             //Delete();
-            Update();
+       //     Update();
             System.Console.WriteLine("执行完毕!");
             System.Console.ReadKey();
         }
@@ -62,9 +62,9 @@ namespace Venus.Test.Console
         }
         private static void Find()
         {
-            var result = db.FindEntity<TestEntity>("1");
+            
             db = new RepositoryFactory().BaseRepository();
-
+            var result = db.FindEntity<TestEntity>("1");
             if (result != null)
                 System.Console.WriteLine("Name:{0}", result.Name);
         }

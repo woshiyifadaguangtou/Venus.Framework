@@ -70,6 +70,10 @@
       <Project>{d682a26f-aa38-42ec-a447-5d07a8dbb91b}</Project>
       <Name>Venus.Application.Mapping</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data.Dapper\Venus.Data.Dapper.csproj">
+      <Project>{62274830-def7-4815-91b9-20e7734045c5}</Project>
+      <Name>Venus.Data.Dapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Venus.Data\Venus.Data.EF\Venus.Data.EF.csproj">
       <Project>{c0a3edb7-382d-4043-b7bf-77153440042c}</Project>
       <Name>Venus.Data.EF</Name>
