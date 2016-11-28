@@ -29,3 +29,37 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+<div ng-app="StudentApp" class="row">
+    <div ng-controller="StudentController">
+        {{students.Name}}
+    </div>
+</div>
+
+<script type="text/javascript">
+    var StudentApp = angular.module('StudentApp', []);
+    StudentApp.controller('StudentController', function ($scope, StudentService) {
+
+        getStudents();
+        function getStudents() {
+            StudentService.getStudents()
+                .success(function (studs) {
+                    $scope.students = studs;
+                    console.log($scope.students);
+                })
+                .error(function (error) {
+                    $scope.status = 'Unable to load customer data: ' + error.message;
+                    console.log($scope.status);
+                });
+        }
+    });
+
+    StudentApp.factory('StudentService', ['$http', function ($http) {
+
+        var StudentService = {};
+        StudentService.getStudents = function () {
+            return $http.get('/Home/GetPersons');
+        };
+        return StudentService;
+
+    }]);
+</script>

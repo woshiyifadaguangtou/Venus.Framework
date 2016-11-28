@@ -238,6 +238,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="XmlConfig\ioc.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -249,6 +252,48 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Venus.Application\Venus.Application.Entity\Venus.Application.Entity.csproj">
+      <Project>{b51e1895-4d1f-40a9-9e44-09847090687c}</Project>
+      <Name>Venus.Application.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Application\Venus.Application.Mapping\Venus.Application.Mapping.csproj">
+      <Project>{d682a26f-aa38-42ec-a447-5d07a8dbb91b}</Project>
+      <Name>Venus.Application.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data.Dapper\Venus.Data.Dapper.csproj">
+      <Project>{62274830-def7-4815-91b9-20e7734045c5}</Project>
+      <Name>Venus.Data.Dapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data.EF\Venus.Data.EF.csproj">
+      <Project>{c0a3edb7-382d-4043-b7bf-77153440042c}</Project>
+      <Name>Venus.Data.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data.Repository\Venus.Data.Repository.csproj">
+      <Project>{239ada19-3e52-40ea-8101-3d5643662837}</Project>
+      <Name>Venus.Data.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Data\Venus.Data\Venus.Data.csproj">
+      <Project>{8c2cfbca-6358-4775-9942-e2c91858f413}</Project>
+      <Name>Venus.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Util.Offices\Venus.Util.Offices.csproj">
+      <Project>{f83a159c-d21f-41b6-b6b7-dddc24510ac8}</Project>
+      <Name>Venus.Util.Offices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Util\Venus.Util.Ioc\Venus.Util.Ioc.csproj">
+      <Project>{8def9e80-953e-4ace-9a3d-2dbe112d2046}</Project>
+      <Name>Venus.Util.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Util\Venus.Util.WebControl\Venus.Util.WebControl.csproj">
+      <Project>{b940b599-f4a1-470b-8744-eee50b625a75}</Project>
+      <Name>Venus.Util.WebControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Venus.Util\Venus.Util\Venus.Util.csproj">
+      <Project>{b11a50cf-fc32-4170-b766-3d1bcd4bc7ec}</Project>
+      <Name>Venus.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

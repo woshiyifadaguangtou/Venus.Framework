@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using Venus.Application.Entity;
+using Venus.Data.Repository;
 
 namespace TestWebApplication.Controllers
 {
@@ -10,7 +13,7 @@ namespace TestWebApplication.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+          return View();
         }
 
         public ActionResult About()
@@ -25,6 +28,24 @@ namespace TestWebApplication.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public JsonResult GetPersons()
+        {
+            try
+            {
+                IRepository TestRepository = new RepositoryFactory().BaseRepository();
+
+                Expression<Func<TestEntity, bool>> expression = param => true;
+                var result = TestRepository.FindEntity<TestEntity>(expression);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
         }
     }
 }
