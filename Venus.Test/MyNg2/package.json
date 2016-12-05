@@ -1,0 +1,33 @@
+{
+  "name": "angular-quickstart",
+  "version": "1.0.0",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/common": "~2.2.0",
+    "@angular/compiler": "~2.2.0",
+    "@angular/core": "~2.2.0",
+    "@angular/forms": "~2.2.0",
+    "@angular/http": "~2.2.0",
+    "@angular/platform-browser": "~2.2.0",
+    "@angular/platform-browser-dynamic": "~2.2.0",
+    "@angular/router": "~3.2.0",
+
+    "es6-module-loader": "0.16.5",
+    "systemjs": "0.19.40",
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.26",
+    "bootstrap":"^3.3.7"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "rimraf": "^2.5.4",
+    "concurrently": "^3.1.0",
+    "lite-server": "^2.2.2",
+    "typescript": "^2.0.10",
+    "typings": "^2.0.0"
+  },
+  "repository": {}
+}
