@@ -10,5 +10,5 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task("copy:lib", function () {
-    return gulp.src("node_modules/**/*").pipe(gulp.dest("./wwwroot/angularlib/"));
+    return gulp.src("node_modules_bak2/**/*").pipe(gulp.dest("./wwwroot/angularlib/"));
 });
