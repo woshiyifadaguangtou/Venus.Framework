@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDomainMapping.cs" />
+    <Compile Include="CBManager\CBTaskMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SMSManager\MASSetingMap.cs" />
     <Compile Include="SMSManager\MessageSystemTaskMap.cs" />

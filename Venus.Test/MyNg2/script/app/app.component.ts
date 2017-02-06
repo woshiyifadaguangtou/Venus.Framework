@@ -15,13 +15,14 @@ const HEROES:Hero[] = [
     {id :18,name :'Dr IQ'},
     {id :19,name :'Magma'},
     {id :20,name :'Mr. Nice'},
+    {id :21,name :'Mr. Richeal'},
 ];
 
 @Component({
     selector: 'my-app',
     template: `
     <h1>{{title}}</h1>
-    <h2>My Heroes</h2>
+    <h2>My HeroesII</h2>
     <ul class="heroes" >
         <li *ngFor="let hero of heroes" (click)="onSelect(hero)" 
         [class.selected]="hero ===selectedHero" >

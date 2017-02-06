@@ -26,6 +26,7 @@ var HEROES = [
     { id: 18, name: 'Dr IQ' },
     { id: 19, name: 'Magma' },
     { id: 20, name: 'Mr. Nice' },
+    { id: 21, name: 'Mr. Richeal' },
 ];
 var AppComponent = (function () {
     function AppComponent() {
