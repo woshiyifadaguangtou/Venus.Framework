@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Linq.Expressions;
 using Venus.Data.Repository;
 using Venus.Data.EF;
+using Venus.Application.Entity.CBManage;
+using Venus.Application.Business.CBManage;
 
 namespace Venus.Test.Console
 {
@@ -21,6 +23,28 @@ namespace Venus.Test.Console
         static void Main(string[] args)
         {
 
+            CBTaskBLL cbbll = new CBTaskBLL();
+
+            string keyValue = DateTime.Now.ToString("yyyyMMdd");
+            CBTaskEntity entity = new CBTaskEntity()
+            {
+                TaskId = keyValue,
+                cbrq = DateTime.Now,
+                fdate = DateTime.Now.ToString("yyyyMM"),
+                detail_count = 0,
+                cbydm = "0101",
+                state = 0,
+                xh = "0101",
+            };
+            cbbll.CreateCBTask(keyValue, entity);
+
+            System.Console.WriteLine("执行完毕!");
+            System.Console.ReadKey();
+
+        }
+
+        private static void Test1()
+        {
             //   db = new RepositoryFactory().BaseRepository();
             //   db = new Venus.Data.EF.Database(connString, "SqlServer");
             // Insert();
@@ -30,9 +54,6 @@ namespace Venus.Test.Console
             int total = 0;
             FindList<TestEntity>(e => 1 == 1, "Name", out total);
             //ExpressionFun<TestEntity>("Name", "MyTest");
-            System.Console.WriteLine("执行完毕!");
-            System.Console.ReadKey();
-
         }
 
         private static void Insert()

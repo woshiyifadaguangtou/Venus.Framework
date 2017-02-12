@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Venus.Application.Entity.CBManager
+namespace Venus.Migration
 {
-    public class CBTaskEntity
+    class Program
     {
-        public int TaskId { get; set; }
+        static void Main(string[] args)
+        {
+        }
     }
 }

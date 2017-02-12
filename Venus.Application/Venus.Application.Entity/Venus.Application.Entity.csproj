@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CBManager\CBDetailEntity.cs" />
-    <Compile Include="CBManager\CBTaskEntity.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="CBManage\CBDetailEntity.cs" />
+    <Compile Include="CBManage\CBTaskEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SMSManager\MASSetingEntity.cs" />
     <Compile Include="SMSManager\MessageSystemTaskEntity.cs" />

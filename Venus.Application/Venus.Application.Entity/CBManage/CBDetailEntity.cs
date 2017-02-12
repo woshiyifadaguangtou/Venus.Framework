@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Venus.Application.Entity.CBManager
+namespace Venus.Application.Entity.CBManage
 {
-    public class CBDetailEntity
+    public class CBDetailEntity:BaseEntity
     {
         public int TaskId { get; set; }
 
+        public string Id { get; set; }
         public string xh { get; set; }
         public string hh { get; set; }
         public string hm { get; set; }

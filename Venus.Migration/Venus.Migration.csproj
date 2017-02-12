@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C0A3EDB7-382D-4043-B7BF-77153440042C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{168E1A41-4811-485F-9CF1-4FA9A7CF61A1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Venus.Data.EF</RootNamespace>
-    <AssemblyName>Venus.Data.EF</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Venus.Migration</RootNamespace>
+    <AssemblyName>Venus.Migration</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,18 +34,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -56,57 +52,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database.cs" />
-    <Compile Include="DbContext\IDbContext.cs" />
-    <Compile Include="DbContext\SqlServerDbContext.cs" />
-    <Compile Include="Migrations\201702111502008_initial.cs" />
-    <Compile Include="Migrations\201702111502008_initial.Designer.cs">
-      <DependentUpon>201702111502008_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702121438239_add_cbdetailentity.cs" />
-    <Compile Include="Migrations\201702121438239_add_cbdetailentity.Designer.cs">
-      <DependentUpon>201702121438239_add_cbdetailentity.cs</DependentUpon>
+    <Compile Include="Migrations\201702101516193_initial.cs" />
+    <Compile Include="Migrations\201702101516193_initial.Designer.cs">
+      <DependentUpon>201702101516193_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Venus.Application\Venus.Application.Entity\Venus.Application.Entity.csproj">
-      <Project>{b51e1895-4d1f-40a9-9e44-09847090687c}</Project>
-      <Name>Venus.Application.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Venus.Application\Venus.Application.Mapping\Venus.Application.Mapping.csproj">
-      <Project>{d682a26f-aa38-42ec-a447-5d07a8dbb91b}</Project>
-      <Name>Venus.Application.Mapping</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Venus.Util\Venus.Util.Ioc\Venus.Util.Ioc.csproj">
-      <Project>{8def9e80-953e-4ace-9a3d-2dbe112d2046}</Project>
-      <Name>Venus.Util.Ioc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Venus.Util\Venus.Util\Venus.Util.csproj">
-      <Project>{b11a50cf-fc32-4170-b766-3d1bcd4bc7ec}</Project>
-      <Name>Venus.Util</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Venus.Data\Venus.Data.csproj">
-      <Project>{8c2cfbca-6358-4775-9942-e2c91858f413}</Project>
-      <Name>Venus.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extension\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702111502008_initial.resx">
-      <DependentUpon>201702111502008_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702121438239_add_cbdetailentity.resx">
-      <DependentUpon>201702121438239_add_cbdetailentity.cs</DependentUpon>
+    <ProjectReference Include="..\Venus.Application\Venus.Application.Entity\Venus.Application.Entity.csproj">
+      <Project>{b51e1895-4d1f-40a9-9e44-09847090687c}</Project>
+      <Name>Venus.Application.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Venus.Application\Venus.Application.Mapping\Venus.Application.Mapping.csproj">
+      <Project>{d682a26f-aa38-42ec-a447-5d07a8dbb91b}</Project>
+      <Name>Venus.Application.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Venus.Data\Venus.Data.EF\Venus.Data.EF.csproj">
+      <Project>{c0a3edb7-382d-4043-b7bf-77153440042c}</Project>
+      <Name>Venus.Data.EF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702101516193_initial.resx">
+      <DependentUpon>201702101516193_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

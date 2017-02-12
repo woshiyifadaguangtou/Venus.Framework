@@ -11,7 +11,14 @@ namespace Venus.Data.EF
 {
     public class SqlServerDbContext:DbContext,IDbContext
     {
-
+        /// <summary>
+        /// 为数据迁移添加构造函数
+        /// </summary>
+        public SqlServerDbContext()
+        {
+            System.Diagnostics.Debug.Write(Database.Connection.ConnectionString);
+            System.Console.WriteLine(Database.Connection.ConnectionString);
+        }
         public SqlServerDbContext(string connString):base(connString)
         {
             this.Configuration.AutoDetectChangesEnabled = false;
